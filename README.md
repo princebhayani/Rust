@@ -3,7 +3,7 @@
 - learning rust from the basics.
 - It covers concepts like memory management, ownership, borrowing, structures, data types, enums, and much more.
 
-_-_-------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## 01 Preface
 ### Phrase #1
@@ -15,7 +15,7 @@ _-_-----------------------------------------------------------------------------
 ### Phrase #3
 - Rust doesn't hide complexity from developers it offers them the right tools to manage all the complexity.
 
-_-_-------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## 02 Why rust? Isn’t Node.js enough?
 ### Type safety
@@ -29,8 +29,8 @@ It is intended to be used (but not restricted to) to do lower level things
 - Rust has a separate compilation step (similar to C++) that spits out an optimized binary and does a lot of static analysis at compile time. 
 - JS does JIT compilation. 
 
-![](02 Why Rust\pic1.png)
-![](02 Why Rust\pic1.png)
+![](/02%20Why%20Rust/pic1.png)
+![](/02%20Why%20Rust/pic%202.png)
 
 ### Concurrency
 - Rust has built-in support for concurrent programming allowing multiple threads to perform tasks simultaneously without risking data races.
@@ -42,7 +42,7 @@ It is intended to be used (but not restricted to) to do lower level things
 > [!IMPORTANT]
 > Rust doesn't hide complexity from developers it offers them the right tools to manage all the complexity.
 
-_-_-------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 - Rust projects can be used to do a lot of things
     1. Create Backend for a Full stack app
@@ -50,8 +50,17 @@ _-_-----------------------------------------------------------------------------
     3. Create browsers
     4. Great Code Editors
 
-- For running rust locally, you should be able to run cargo in your terminal.
+- For running rust locally, you should be able to run ```cargo``` in your terminal.
 > [!NOTE]
-> Cargo is similar to npm. It’s a package manager for rust.
+> Cargo is similar to ```npm```. It’s a package manager for rust.
 
-_-_-------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+#### 03 Initializing a rust project
+- Run the following command to bootstrap a simple Rust project
+
+```Rust
+mkdir rust-project
+cd rust-project
+cargo init
+```
+---
