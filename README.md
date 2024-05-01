@@ -64,3 +64,63 @@ cd rust-project
 cargo init
 ```
 ---
+
+## 04 Simple Variables in Rust
+- You can define variables using the ```let``` keyword (very similar to JS)
+- You can assign the type of the variable, or it can be inferred as well.
+##### 1. Numbers
+```
+fn main() {
+    let x: i32 = 1;
+    println!("{}", x);
+}
+```
+- Here, i32 shows size(in bits) of variable.
+- i8, i16, i32, i64 etc for signed integer and u8,u16, u32, u64 is for unsigned integer.
+- for float f8, f16,f32 etc.
+- by default it will i32. also if you not assign type it will assign by default.
+
+> [!CAUTION]
+> What happens if we overflow?
+```
+fn main() {
+    let mut num: i8 = 124;
+    for i in 0..100 {
+        num += 127;
+    }
+    print!("Number: {}", num)
+}
+```
+output:
+> attempt to add with overflow
+
+##### 02 Booleans
+- Booleans can have two states, true or false.
+```
+fn main() {
+    let is_male = false;
+    let is_above_18 = true;
+    
+    if is_male {
+        println!("You are a male");
+
+    } else {
+        println!("You are not a male");
+    }
+
+    if is_male && is_above_18 {
+        print!("You are a legal male");
+    }
+}
+```
+
+##### 03 String
+- There are two ways of doing ```strings``` in rust. We’ll be focussing on the easier one.
+```
+fn main() {
+    let greeting = String::from("hello world");
+    println!("{}", greeting);
+
+    // print!("{}", greeting.chars().nth(1000))
+}
+```
