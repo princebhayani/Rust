@@ -209,3 +209,28 @@ There are 3 popular ways of doing memory management.
 
 ---
 
+## 08 Jargon #1 - Mutability
+##### Mutability
+Immutable ```variables``` represent variables whose value cant be changed once assigned.
+```
+fn main() {
+    let x: i32 = 1;
+    x = 2; // Error because x is immutable
+    println!("{}", x);
+}
+```
+> [!NOTE]
+> By default, all variables in Rust are immutable.
+
+1. Immutable data is inherently thread-safe because if no thread can alter the data, then no synchronization is needed when data is accessed concurrently.
+2. Knowing that certain data will not change allows the compiler to optimize code better. 
+
+- You can make variables mutable by using the ```mut``` keyword.
+```
+fn main() {
+    let mut x: i32 = 1;
+    x = 2; // No error
+    println!("{}", x);
+}
+```
+> const in Javascript is not the same as immutable variables in rust. In JS, you can still update the contents of const ```arrays``` and ```objects ```.
