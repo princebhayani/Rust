@@ -124,6 +124,8 @@ fn main() {
     // print!("{}", greeting.chars().nth(1000))
 }
 ```
+---
+
 ## 05 Conditionals, loops
 ##### Conditionals
 ```
@@ -161,3 +163,12 @@ pub fn get_first_name(str: String) -> String {
     return first_name;
 }
 ```
+---
+
+## 06 Functions
+```
+fn do_sum(a: i32, b: i32) -> i32 {
+	return a + b;
+}
+```
+---
