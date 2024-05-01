@@ -172,3 +172,40 @@ fn do_sum(a: i32, b: i32) -> i32 {
 }
 ```
 ---
+
+## 07 Memory Management in Rust
+![](./07%20Memory%20Managment%20in%20Rust/pic1.png)
+- Whenever you run a program (C++, Rust, JS), it ```allocates ```and ```deallocates``` memory on the RAM.
+
+For example, for the following JS code:
+```
+function main() {
+  runLoop();
+}
+
+function runLoop() {
+  let x = [];
+  for (let i = 0; i < 100000; i++) {
+    x.push(1);
+  }
+  console.log(x);
+}
+
+main();
+```
+> as the ```runLoop``` function runs, a new array is pushed to RAM, and eventually ```garbage collected```
+
+There are 3 popular ways of doing memory management.
+![](./07%20Memory%20Managment%20in%20Rust/pic2.png)
+
+- Memory management is a crucial aspect of programming in Rust, designed to ensure safety and efficiency without the need for a garbage collector. 
+- Not having a ```garbage collector``` is one of the key reasons rust is so fast
+- It achieves this using the
+    1. Mutability
+    2. Heap and memory
+    3. Ownership model
+    4. Borrowing and references
+    5. Lifetimes
+
+---
+
