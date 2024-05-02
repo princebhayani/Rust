@@ -317,3 +317,114 @@ Memory stack and heap:
 ![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic62.png)
 
 ---
+
+## 10 Jargon #3 - Ownership
+![](./10%20Jargon%203%20-%20Ownership/pic1.png)
+
+##### Stack variables
+Example #1 - Passing stack Variables inside functions
+```Rust
+fn main() {
+		let x = 1; // crated on stack
+		let y = 3; // created on stack
+    println!("{}", sum(x, y));
+    println!("Hello, world!");
+}
+
+fn sum(a: i32, b: i32) -> i32 {
+    let c = a + b;
+    return c;
+}
+```
+- This might sound trivial since if the function is popped of the stack, all variables go away with it, but check the next example.
+
+Example #2 - Scoping variables in the same fn
+```Rust
+fn main() {
+    let x = 1; // crated on stack
+    {
+        let y = 3; // created on stack
+    }
+
+    println!("{}", y); // throws error
+}
+```
+
+##### Heap variables
+- Heap variables always want to have a single owner, and if their owner goes out of scope, they get de-allocated.
+
+- Any time the owner of a heap variable goes out of scope, the value is de-allocated from the heap.
+
+Example #1 - Passing strings (heap variables) to functions as args
+```Rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1;
+    println!("{}", s1); // This line would cause a compile error because ownership has been moved.
+}
+```
+![](./10%20Jargon%203%20-%20Ownership/pic2.svg)
+
+Another example of the same thing - 
+```Rust
+fn main() {
+    let my_string = String::from("hello");
+    takes_ownership(my_string);
+    println!("{}", my_string); // This line would cause a compile error because ownership has been moved.
+}
+
+fn takes_ownership(some_string: String) {
+    println!("{}", some_string); // `some_string` now owns the data.
+}
+```
+
+- At any time, each value can have a single owner. This is to avoid memory issues like.
+    1. Double free error.
+    2. Dangling pointers.
+
+###### Fix?
+Clone the string
+```Rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+    println!("{}", s1); // Compiles now
+}
+```
+![](./10%20Jargon%203%20-%20Ownership/pic3.png)
+
+But what if you want to pass the same string over to the function? You don’t want to clone it, and you want to return back ownership to the original function?
+
+You can either do the following -
+```Rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = takes_ownership(s1);
+    println!("{}", s2);
+}
+
+fn takes_ownership(some_string: String) -> String {
+    println!("{}", some_string); 
+    return some_string; // return the string ownership back to the original main fn
+}
+```
+You can also do this
+```Rust
+fn main() {
+    let mut s1 = String::from("hello");
+    s1 = takes_ownership(s1);
+    println!("{}", s2);
+}
+
+fn takes_ownership(some_string: String) -> String {
+    println!("{}", some_string); 
+    return some_string; // return the string ownership back to the original main fn
+}
+```
+
+> [!NOTE]
+> Is there a better way to pass strings (or generally heap related data structures) to a function without passing over the ownership?
+>
+> Yes - References
+
+---
