@@ -69,7 +69,7 @@ cargo init
 - You can define variables using the ```let``` keyword (very similar to JS)
 - You can assign the type of the variable, or it can be inferred as well.
 ##### 1. Numbers
-```
+```Rust
 fn main() {
     let x: i32 = 1;
     println!("{}", x);
@@ -82,7 +82,7 @@ fn main() {
 
 > [!CAUTION]
 > What happens if we overflow?
-```
+```Rust
 fn main() {
     let mut num: i8 = 124;
     for i in 0..100 {
@@ -96,7 +96,7 @@ output:
 
 ##### 2. Booleans
 - Booleans can have two states, true or false.
-```
+```Rust
 fn main() {
     let is_male = false;
     let is_above_18 = true;
@@ -116,7 +116,7 @@ fn main() {
 
 ##### 3. String
 - There are two ways of doing ```strings``` in rust. We’ll be focussing on the easier one.
-```
+```Rust
 fn main() {
     let greeting = String::from("hello world");
     println!("{}", greeting);
@@ -128,7 +128,7 @@ fn main() {
 
 ## 05 Conditionals, loops
 ##### Conditionals
-```
+```Rust
 pub fn main() {
     let x = 99;
     let is_even = is_even(x);
@@ -145,7 +145,7 @@ pub fn is_even(x: i32) -> bool {
 ```
 
 ##### Loops
-```
+```Rust
 pub fn main() {
     let str = String::from("Prince Bhayani");
     println!("First name {}", get_first_name(str))
@@ -166,7 +166,7 @@ pub fn get_first_name(str: String) -> String {
 ---
 
 ## 06 Functions
-```
+```Rust
 fn do_sum(a: i32, b: i32) -> i32 {
 	return a + b;
 }
@@ -178,7 +178,7 @@ fn do_sum(a: i32, b: i32) -> i32 {
 - Whenever you run a program (C++, Rust, JS), it ```allocates ```and ```deallocates``` memory on the RAM.
 
 For example, for the following JS code:
-```
+```Rust
 function main() {
   runLoop();
 }
@@ -212,7 +212,7 @@ There are 3 popular ways of doing memory management.
 ## 08 Jargon #1 - Mutability
 ##### Mutability
 Immutable ```variables``` represent variables whose value cant be changed once assigned.
-```
+```Rust
 fn main() {
     let x: i32 = 1;
     x = 2; // Error because x is immutable
@@ -226,7 +226,7 @@ fn main() {
 2. Knowing that certain data will not change allows the compiler to optimize code better. 
 
 - You can make variables mutable by using the ```mut``` keyword.
-```
+```Rust
 fn main() {
     let mut x: i32 = 1;
     x = 2; // No error
@@ -234,3 +234,86 @@ fn main() {
 }
 ```
 > const in Javascript is not the same as immutable variables in rust. In JS, you can still update the contents of const ```arrays``` and ```objects ```.
+
+---
+
+## 09 Jargon #2 - Stack vs Heap
+##### Stack vs. Heap Allocation
+Rust has clear rules about stack and heap data management:
+
+- Stack: Fast allocation and deallocation. Rust uses the stack for most primitive data types and for data where the size is known at compile time (eg: numbers).
+- Heap: Used for data that can grow at runtime, such as vectors or strings.
+
+##### What’s stored on the stack?
+1. Numbers - i32, i64, f64 …
+2. Booleans - true, false
+3. Fixed sized arrays 
+
+##### What’s stored on heap?
+1. Strings
+2. Vectors 
+
+##### Examples
+- Hello world with numbers
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic1.png)
+
+- Hello world with functions
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic2.png)
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic3.png)
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic4.png)
+
+- Hello world with strings
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic5.png)
+
+##### Memory in action
+```Rust
+fn main() {
+    stack_fn();   // Call the function that uses stack memory
+    heap_fn();    // Call the function that uses heap memory
+    update_string();  // Call the function that changes size of variable at runtime
+}
+
+fn stack_fn() {
+    // Declare a few integers on the stack
+    let a = 10;
+    let b = 20;
+    let c = a + b;
+    println!("Stack function: The sum of {} and {} is {}", a, b, c);
+}
+
+fn heap_fn() {
+    // Create a string, which is allocated on the heap
+    let s1 = String::from("Hello");
+    let s2 = String::from("World");
+    let combined = format!("{} {}", s1, s2);
+    println!("Heap function: Combined string is '{}'", combined);
+}
+
+fn update_string() {
+    // Start with a base string on the heap
+    let mut s = String::from("Initial string");
+    println!("Before update: {}", s);
+    println!("Capacity: {}, Length: {}, pointer: {:p}",s.capacity(),s.len(),s.as_ptr());
+
+    // Append some text to the string
+    s.push_str(" and some additional text");
+    println!("After update: {}", s);
+    println!("Capacity: {}, Length: {}, pointer: {:p}",s.capacity(),s.len(),s.as_ptr());
+}
+```
+
+Output:
+```
+Stack function: The sum of 10 and 20 is 30
+Heap function: Combined string is 'Hello World'
+Before update: Initial string
+Capacity: 14, Length: 14, pointer: 0x1cc97809940
+After update: Initial string and some additional text
+Capacity: 39, Length: 39, pointer: 0x1cc97802b90
+```
+
+Memory stack and heap:
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic61.png)
+![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic62.png)
+
+---
