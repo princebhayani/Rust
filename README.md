@@ -940,3 +940,52 @@ fn main() {
 ```
 
 ---
+
+## 18 Cargo, packages and external deps
+Just like the ```nodejs``` ecosystem has ```npm```, the rust ecosystem has ```cargo```.
+
+Cargo is a ```package manager``` for rust, which means we can use it to bring packages (crates in case of rust) to our projects
+
+
+##### Generate a random number
+Run ```cargo add rand```
+```Rust
+use rand::{Rng, thread_rng};
+
+fn main() {
+    let mut rng = thread_rng();
+    let n: u32 = rng.gen();
+    println!("Random number: {}", n);
+}
+```
+Output:
+
+> Random number: 2497579865
+
+
+##### Store time in a DB/as a variable
+Run ```cargo add chrono```
+```Rust
+use chrono::{Local, Utc};
+
+fn main() {
+    // Get the current date and time in UTC
+    let now = Utc::now();
+    println!("Current date and time in UTC: {}", now);
+
+    // Format the date and time
+    let formatted = now.format("%Y-%m-%d %H:%M:%S");
+    println!("Formatted date and time: {}", formatted);
+
+    // Get local time
+    let local = Local::now();
+    println!("Current date and time in local: {}", local);
+}
+```
+Output:
+
+>Current date and time in UTC: 2024-05-03 18:23:20.777067900 UTC
+>Formatted date and time: 2024-05-03 18:23:20
+>Current date and time in local: 2024-05-03 23:53:20.777855200 +05:30
+
+---
