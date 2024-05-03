@@ -540,8 +540,32 @@ fn update_word(word: &mut String) {
 
 This to avoid any data races/inconsistent behaviour.
 
-    - If someone makes an ```immutable reference```, they don’t expect the value to change suddenly.
-    - If more than one ```mutable references``` happen, there is a possibility of a data race and synchronization issues.
+- If someone makes an ```immutable reference```, they don’t expect the value to change suddenly.
+- If more than one ```mutable references``` happen, there is a possibility of a data race and synchronization issues.
 
 ---
+
+## 12 Structs
+Structs in rust let you structure data together. Similar to ```objects``` in javascript.
+```Rust
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+fn main() {
+    let user1 = User {
+        active: true,
+        username: String::from("someusername123"),
+        email: String::from("someone@example.com"),
+        sign_in_count: 1,
+    };
+    print!("User 1 username: {:?}", user1.username);
+}
+```
+
+Can you guess if they are stored in ```stack``` or ```heap```?
+![](./12%20Structs/pic1.png)
 
