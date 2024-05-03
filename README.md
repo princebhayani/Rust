@@ -698,3 +698,64 @@ fn main() {
 
 ---
 
+## 14 Enums
+Enums in rust are similar to enums in Typescript. They allow you to define a type by enumerating its possible variants.
+
+```Rust
+enum Direction {
+    North,
+    East,
+    South,
+    West,
+}
+
+fn main() {
+    let my_direction = Direction::North;
+    let new_direction = my_direction; // No error, because Direction is Copy
+    move_around(new_direction);
+}
+
+fn move_around(direction: Direction) {
+    // implements logic to move a character around
+}
+```
+
+Why not simply do the following -
+```Rust
+fn main() {
+    move_around("north".to_string());
+}
+
+fn move_around(direction: String) {
+    if direction == "north" {
+        println!("Moving North");
+    }
+}
+```
+Because we don’t enforce the 4 variants of directions. So this is much looser than strictly allowing only 4 variants for direction.
+
+##### Enums with values
+```Rust
+// Define an enum called Shape
+enum Shape {
+    Circle(f64),  // Variant with associated data (radius)
+    Square(f64),  // Variant with associated data (side length)
+    Rectangle(f64, f64),  // Variant with associated data (width, height)
+}
+
+// Function to calculate area based on the shape
+fn calculate_area(shape: Shape) -> f64 {
+    // calculates the area of the shape 
+    return 0
+}
+
+fn main() {
+    // Create instances of different shapes
+    let circle = Shape::Circle(5.0);
+    let square = Shape::Square(4.0);
+    let rectangle = Shape::Rectangle(3.0, 6.0);
+    
+}
+```
+
+---
