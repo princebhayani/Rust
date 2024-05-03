@@ -793,3 +793,116 @@ fn main() {
 ```
 
 ---
+
+## 16 Error handling
+Different languages have different ways to handle errors. 
+
+Javascript, for example, has the concept of try catch blocks
+```js
+try {
+    const data = fs.readFileSync('example.txt', 'utf8');
+    console.log("File content:", data);
+} catch (err) {
+    console.error("Error reading the file:", err);
+}
+```
+The reason we put the code inside a try catch block is that ```reading a file``` is ```unpredictable```. 
+
+The file might not exist, the file might be locked by another process, and hence there is a possibility of this code ```throwing an error```.
+
+The same is true for a rust program trying to access a file. But the way rust does error handling is slightly different.
+
+##### Result Enum
+```Rust 
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+If you look at the code above, it is an enum (with generic types)
+
+This enum is what a function can return/returns when it has a possibility of throwing an error
+
+For example
+```Rust
+use std::fs::File;
+
+fn main() {
+	let greeting_file_result = fs::read_to_string("hello.txt");
+}
+```
+Notice the type of ```greeting_file_result``` in VSCode
+
+It returns an enum that looks as follows. It’s an enum with the ```Ok``` variant having a string value and ```Err```variant having an Error value 
+```Rust
+enum Result{
+    Ok(String),
+    Err(Error),
+}
+```
+
+Complete code
+```Rust
+use std::fs;
+
+fn main() {
+    let greeting_file_result = fs::read_to_string("hello.txt");
+
+    match greeting_file_result {
+        Ok(file_content) => {
+            println!("File read successfully: {:?}", file_content);
+        },
+        Err(error) => {
+            println!("Failed to read file: {:?}", error);
+        }
+    }
+}
+```
+Incase you write a function yourself, you can also return a ```Result``` from it. As the name suggests, ```Result``` holds the ```result``` of a function call that might lead to an error. 
+
+##### Unwraps
+Incase you are ok with runtime errors (crashing the process while it runs if an error happens), then you can ```unwrap``` a ```Result```
+```Rust
+use std::fs;
+
+fn main() {
+    let greeting_file_result = fs::read_to_string("hello.txt");
+    print!("{}", greeting_file_result.unwrap());
+}
+```
+
+##### Returning a custom error
+```Rust
+use core::fmt;
+use std::{fmt::{Debug, Formatter}, fs};
+
+pub struct FileReadError {
+
+}
+
+fn main() {
+    let contents = read_file("hello.txt".to_string());
+    match contents {
+        Ok(file_content) => {
+            println!("File content: {}", file_content);
+        },
+        Err(error) => {
+            println!("Error reading file: {:?}", error);
+        }
+    }
+}
+
+fn read_file(file_path: String) -> Result<String, FileReadError> {
+    let greeting_file_result = fs::read_to_string("hello.txt");
+    match greeting_file_result {
+        Ok(file_content) => {
+            Ok(file_content)
+        },
+        Err(error) => {
+            let err = FileReadError {};
+            Err(err)
+        }
+    }
+}
+```
+
