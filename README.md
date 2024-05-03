@@ -428,3 +428,120 @@ fn takes_ownership(some_string: String) -> String {
 > Yes - References
 
 ---
+
+## 11 Jargon #4 - Borrowing and References
+##### References
+References mean giving the address of a string rather than the ownership of the string over to a function
+
+For example
+```Rust
+fn main() {
+    let s1 = String::from("Hello");
+    let s2 = &s1;
+
+    println!("{}", s2);
+    println!("{}", s1);    // This is valid, The first pointer wasn't invalidated
+}
+```
+![](./11%20Jargon%204%20-%20Borrowing%20and%20References/pic1.png)
+
+##### Borrowing
+You can transferring ownership of variables to fns. By passing a reference to the string to the function ```borrowing_ownership```, the ownership of the string remains with the original variable, in the ```main``` function. This allows you to use ```my_string``` again after the function call.
+
+```Rust
+fn main() {
+    let my_string = String::from("Hello, Rust!");
+    borrowing_ownership(&my_string);  // Pass a reference to my_string
+    println!("{}", my_string);    // This is valid because ownership was not transferred
+}
+
+fn borrowing_ownership(some_string: &String) {
+    println!("{}", some_string);  // some_string is borrowed and not moved
+}
+```
+
+##### Mutable references
+What if you want a function to ```update``` the value of a variable?
+```Rust
+fn main() {
+    let mut s1 = String::from("Hello");
+    update_word(&mut s1);
+    println!("{}", s1);
+}
+
+fn update_word(word: &mut String) {
+    word.push_str(" World");
+}
+```
+
+Try having more than one mutable reference at the same time - 
+```Rust
+fn main() {
+    let mut s1 = String::from("Hello");
+    let s2 = &mut s1;
+    update_word(&mut s1);
+    println!("{}", s1);
+    println!("{}", s2);
+}
+
+fn update_word(word: &mut String) {
+    word.push_str(" World");
+}
+```
+- This gives an Error.
+
+##### Rules of borrowing
+- There can me many ```immutable references``` at the same time
+```Rust
+fn main() {
+    let  s1 = String::from("Hello");
+    let s2 = &s1;
+    let s3 = &s1;
+    
+    println!("{}", s1);
+    println!("{}", s2);
+    println!("{}", s3);
+}
+// No errors
+```
+
+- There can be only one ```mutable reference```  at a time
+```Rust
+fn main() {
+    let mut s1 = String::from("Hello");
+    let s2 = &mut s1;
+    let s3 = update_word(&mut s1);
+    
+    println!("{}", s1);
+    println!("{}", s2);
+}
+
+fn update_word(word: &mut String) {
+    word.push_str(" World");
+}
+// Error
+```
+
+- If there is a ```mutable reference``` , you can’t have another immutable reference either.
+```Rust
+fn main() {
+    let mut s1 = String::from("Hello");
+    let s2 = &mut s1;
+    let s3 = &s1;
+    
+    println!("{}", s1);
+    println!("{}", s2);
+}
+
+fn update_word(word: &mut String) {
+    word.push_str(" World");
+}
+```
+
+This to avoid any data races/inconsistent behaviour.
+
+    - If someone makes an ```immutable reference```, they don’t expect the value to change suddenly.
+    - If more than one ```mutable references``` happen, there is a possibility of a data race and synchronization issues.
+
+---
+
