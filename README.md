@@ -672,3 +672,29 @@ fn change_name(user1: User) {
 
 ---
 
+## 13 Implementing structs
+You can also ```implement structs``` , which means you can attach functions to instances of structs
+(Very similar to classes in TS)
+```Rust
+struct Rect {
+   width: u32,
+   height: u32,
+}
+
+impl Rect {
+    fn area(&self) -> u32 {
+         self.width * self.height
+    }
+}
+
+fn main() {
+    let rect = Rect {
+        width: 30,
+        height: 50,
+    };
+    print!("The area of the rectangle is {}", rect.area());
+}
+```
+
+---
+
