@@ -68,7 +68,7 @@ cargo init
 ## 04 Simple Variables in Rust
 - You can define variables using the ```let``` keyword (very similar to JS)
 - You can assign the type of the variable, or it can be inferred as well.
-##### 1. Numbers
+#### 1. Numbers
 ```Rust
 fn main() {
     let x: i32 = 1;
@@ -94,7 +94,7 @@ fn main() {
 output:
 > attempt to add with overflow
 
-##### 2. Booleans
+#### 2. Booleans
 - Booleans can have two states, true or false.
 ```Rust
 fn main() {
@@ -114,7 +114,7 @@ fn main() {
 }
 ```
 
-##### 3. String
+#### 3. String
 - There are two ways of doing ```strings``` in rust. We’ll be focussing on the easier one.
 ```Rust
 fn main() {
@@ -127,7 +127,7 @@ fn main() {
 ---
 
 ## 05 Conditionals, loops
-##### Conditionals
+#### Conditionals
 ```Rust
 pub fn main() {
     let x = 99;
@@ -144,7 +144,7 @@ pub fn is_even(x: i32) -> bool {
 }
 ```
 
-##### Loops
+#### Loops
 ```Rust
 pub fn main() {
     let str = String::from("Prince Bhayani");
@@ -210,7 +210,7 @@ There are 3 popular ways of doing memory management.
 ---
 
 ## 08 Jargon #1 - Mutability
-##### Mutability
+#### Mutability
 Immutable ```variables``` represent variables whose value cant be changed once assigned.
 ```Rust
 fn main() {
@@ -238,22 +238,22 @@ fn main() {
 ---
 
 ## 09 Jargon #2 - Stack vs Heap
-##### Stack vs. Heap Allocation
+#### Stack vs. Heap Allocation
 Rust has clear rules about stack and heap data management:
 
 - Stack: Fast allocation and deallocation. Rust uses the stack for most primitive data types and for data where the size is known at compile time (eg: numbers).
 - Heap: Used for data that can grow at runtime, such as vectors or strings.
 
-##### What’s stored on the stack?
+#### What’s stored on the stack?
 1. Numbers - i32, i64, f64 …
 2. Booleans - true, false
 3. Fixed sized arrays 
 
-##### What’s stored on heap?
+#### What’s stored on heap?
 1. Strings
 2. Vectors 
 
-##### Examples
+#### Examples
 - Hello world with numbers
 ![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic1.png)
 
@@ -265,7 +265,7 @@ Rust has clear rules about stack and heap data management:
 - Hello world with strings
 ![](./09%20Jargon%202%20-%20Stack%20vs%20Heap/pic5.png)
 
-##### Memory in action
+#### Memory in action
 ```Rust
 fn main() {
     stack_fn();   // Call the function that uses stack memory
@@ -321,7 +321,7 @@ Memory stack and heap:
 ## 10 Jargon #3 - Ownership
 ![](./10%20Jargon%203%20-%20Ownership/pic1.png)
 
-##### Stack variables
+#### Stack variables
 Example #1 - Passing stack Variables inside functions
 ```Rust
 fn main() {
@@ -350,7 +350,7 @@ fn main() {
 }
 ```
 
-##### Heap variables
+#### Heap variables
 - Heap variables always want to have a single owner, and if their owner goes out of scope, they get de-allocated.
 
 - Any time the owner of a heap variable goes out of scope, the value is de-allocated from the heap.
@@ -382,7 +382,7 @@ fn takes_ownership(some_string: String) {
     1. Double free error.
     2. Dangling pointers.
 
-###### Fix?
+#### Fix?
 Clone the string
 ```Rust
 fn main() {
@@ -430,7 +430,7 @@ fn takes_ownership(some_string: String) -> String {
 ---
 
 ## 11 Jargon #4 - Borrowing and References
-##### References
+#### References
 References mean giving the address of a string rather than the ownership of the string over to a function
 
 For example
@@ -445,7 +445,7 @@ fn main() {
 ```
 ![](./11%20Jargon%204%20-%20Borrowing%20and%20References/pic1.png)
 
-##### Borrowing
+#### Borrowing
 You can transferring ownership of variables to fns. By passing a reference to the string to the function ```borrowing_ownership```, the ownership of the string remains with the original variable, in the ```main``` function. This allows you to use ```my_string``` again after the function call.
 
 ```Rust
@@ -460,7 +460,7 @@ fn borrowing_ownership(some_string: &String) {
 }
 ```
 
-##### Mutable references
+#### Mutable references
 What if you want a function to ```update``` the value of a variable?
 ```Rust
 fn main() {
@@ -490,7 +490,7 @@ fn update_word(word: &mut String) {
 ```
 - This gives an Error.
 
-##### Rules of borrowing
+#### Rules of borrowing
 - There can me many ```immutable references``` at the same time
 ```Rust
 fn main() {
@@ -570,7 +570,7 @@ Can you guess if they are stored in ```stack``` or ```heap```?
 ![](./12%20Structs/pic1.png)
 
 
-##### traits
+#### traits
 1. ```mutable``` and ```immutable``` references
 2. Ownership transfer
 
@@ -734,7 +734,7 @@ fn move_around(direction: String) {
 ```
 Because we don’t enforce the 4 variants of directions. So this is much looser than strictly allowing only 4 variants for direction.
 
-##### Enums with values
+#### Enums with values
 ```Rust
 // Define an enum called Shape
 enum Shape {
@@ -812,7 +812,7 @@ The file might not exist, the file might be locked by another process, and hence
 
 The same is true for a rust program trying to access a file. But the way rust does error handling is slightly different.
 
-##### Result Enum
+#### Result Enum
 ```Rust 
 enum Result<T, E> {
     Ok(T),
@@ -860,7 +860,7 @@ fn main() {
 ```
 Incase you write a function yourself, you can also return a ```Result``` from it. As the name suggests, ```Result``` holds the ```result``` of a function call that might lead to an error. 
 
-##### Unwraps
+#### Unwraps
 Incase you are ok with runtime errors (crashing the process while it runs if an error happens), then you can ```unwrap``` a ```Result```
 ```Rust
 use std::fs;
@@ -871,7 +871,7 @@ fn main() {
 }
 ```
 
-##### Returning a custom error
+#### Returning a custom error
 ```Rust
 use core::fmt;
 use std::{fmt::{Debug, Formatter}, fs};
@@ -947,7 +947,7 @@ Just like the ```nodejs``` ecosystem has ```npm```, the rust ecosystem has ```ca
 Cargo is a ```package manager``` for rust, which means we can use it to bring packages (crates in case of rust) to our projects
 
 
-##### Generate a random number
+#### Generate a random number
 Run ```cargo add rand```
 ```Rust
 use rand::{Rng, thread_rng};
@@ -963,7 +963,7 @@ Output:
 > Random number: 2497579865
 
 
-##### Store time in a DB/as a variable
+#### Store time in a DB/as a variable
 Run ```cargo add chrono```
 ```Rust
 use chrono::{Local, Utc};
@@ -985,7 +985,9 @@ fn main() {
 Output:
 
 >Current date and time in UTC: 2024-05-03 18:23:20.777067900 UTC
+>
 >Formatted date and time: 2024-05-03 18:23:20
+>
 >Current date and time in local: 2024-05-03 23:53:20.777855200 +05:30
 
 ---
